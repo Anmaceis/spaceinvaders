@@ -58,5 +58,4 @@ public class Vaisseau {
 		this.origine.changerAbscisse(x);
 		this.origine.changerOrdonnee(y);
 	}
-
 }
