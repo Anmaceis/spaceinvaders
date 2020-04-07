@@ -2,69 +2,61 @@ package fr.unilim.iut.spaceInvaders;
 
 public class Vaisseau {
 
-	int x;
-	int y;
-	int longueur;
-	int hauteur;
+	private Position origine;
+	private Dimension dimension;
 
 	public Vaisseau(int longueur, int hauteur) {
 		this(longueur, hauteur, 0, 0);
 	}
 
-    public Vaisseau(int longueur, int hauteur, int x, int y) {
-	   this.longueur=longueur;
-	   this.hauteur=hauteur;
-	   this.x = x;
-	   this.y = y;
-    }
+	public Vaisseau(int longueur, int hauteur, int x, int y) {
+		this(new Dimension(longueur, hauteur), new Position(x, y));
+	}
+
+	public Vaisseau(Dimension dimension, Position positionOrigine) {
+		this.dimension = dimension;
+		this.origine = positionOrigine;
+	}
 
 	public boolean occupeLaPosition(int x, int y) {
-	     return (estAbscisseCouverte(x) && estOrdonneeCouverte(y));
-    }
+		return estAbscisseCouverte(x) && estOrdonneeCouverte(y);
+	}
 
 	private boolean estOrdonneeCouverte(int y) {
-		return ordonneeLaPlusBasse(y) && ordonneeLaPlusHaute(y);
-	}
-
-	private boolean ordonneeLaPlusHaute(int y) {
-		return y<=this.y;
-	}
-
-	private boolean ordonneeLaPlusBasse(int y) {
-		return this.y-this.hauteur+1<=y;
+		return (ordonneeLaPlusBasse() <= y) && (y <= ordonneeLaPlusHaute());
 	}
 
 	private boolean estAbscisseCouverte(int x) {
-		return (absicissLaPlusAGauche()<=x) && (x<=abscisseLaPlusADroite());
+		return (abscisseLaPlusAGauche() <= x) && (x <= abscisseLaPlusADroite());
 	}
 
-	private int abscisseLaPlusADroite() {
-		return this.x+this.longueur-1;
+	private int ordonneeLaPlusBasse() {
+		return this.origine.ordonnee() - this.dimension.hauteur() + 1;
+	}
+
+	private int ordonneeLaPlusHaute() {
+		return this.origine.ordonnee();
+	}
+
+	public int abscisseLaPlusADroite() {
+		return this.origine.abscisse() + this.dimension.longueur() - 1;
+	}
+
+	public int abscisseLaPlusAGauche() {
+		return this.origine.abscisse();
 	}
 
 	public void seDeplacerVersLaDroite() {
-		this.x = this.x + 1;
-		
+		this.origine.changerAbscisse(this.origine.abscisse() + 1);
 	}
-	
+
 	public void seDeplacerVersLaGauche() {
-		this.x = this.x - 1;
-		
-	}
-	public int absicissLaPlusAGauche() {
-		return this.x;
+		this.origine.changerAbscisse(this.origine.abscisse() - 1);
 	}
 
 	public void positionner(int x, int y) {
-	    this.x = x;
-	    this.y = y;
-    }
-
-	public int absicissLaPlusADroite() {
-		return this.x;
+		this.origine.changerAbscisse(x);
+		this.origine.changerOrdonnee(y);
 	}
-
-
-	
 
 }
