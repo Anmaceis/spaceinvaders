@@ -80,5 +80,4 @@ public class SpaceInvaders {
 			vaisseau.positionner(x, y);
 		}
 	    
-		
    }
