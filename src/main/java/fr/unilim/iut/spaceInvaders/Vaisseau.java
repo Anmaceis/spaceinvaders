@@ -4,6 +4,7 @@ public class Vaisseau {
 
 	private Position origine;
 	private Dimension dimension;
+	private int vitesse;
 
 	public Vaisseau(int longueur, int hauteur) {
 		this(longueur, hauteur, 0, 0);
@@ -30,7 +31,7 @@ public class Vaisseau {
 		return (abscisseLaPlusAGauche() <= x) && (x <= abscisseLaPlusADroite());
 	}
 
-	private int ordonneeLaPlusBasse() {
+	public int ordonneeLaPlusBasse() {
 		return this.origine.ordonnee() - this.dimension.hauteur() + 1;
 	}
 
@@ -57,6 +58,16 @@ public class Vaisseau {
 	public void positionner(int x, int y) {
 		this.origine.changerAbscisse(x);
 		this.origine.changerOrdonnee(y);
+	}
+
+	public int longueur() {
+		// TODO Auto-generated method stub
+		return this.dimension.longueur();
+	}
+
+	public int hauteur() {
+		// TODO Auto-generated method stub
+		return this.dimension.hauteur();
 	}
 	
 }

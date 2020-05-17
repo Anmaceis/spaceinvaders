@@ -1,11 +1,11 @@
 package fr.unilim.iut.spaceInvaders;
 import fr.unilim.iut.spaceInvaders.utils.*;
+import fr.unilim.iut.spaceInvaders.moteurjeu.*;
 
-public class SpaceInvaders {
 
-	    private static final char MARQUE_FIN_LIGNE = '\n';
-		private static final char MARQUE_VIDE = '.';
-		private static final char MARQUE_VAISSEAU = 'V';
+public class SpaceInvaders implements Jeu{
+
+	    
 		int longueur;
 	    int hauteur;
 	    Vaisseau vaisseau;
@@ -22,7 +22,7 @@ public class SpaceInvaders {
 				for (int x = 0; x < longueur; x++) {
 					espaceDeJeu.append(recupererMarqueDeLaPosition(x, y));
 				}
-				espaceDeJeu.append(MARQUE_FIN_LIGNE);
+				espaceDeJeu.append(Constante.MARQUE_FIN_LIGNE);
 			}
 			return espaceDeJeu.toString();
 		}
@@ -46,16 +46,16 @@ public class SpaceInvaders {
 			return this.aUnVaisseau() && vaisseau.occupeLaPosition(x, y);
 		}
 		
-		private boolean aUnVaisseau() {
+		public boolean aUnVaisseau() {
 			return vaisseau!=null;
 		}
 	    
 		private char recupererMarqueDeLaPosition(int x, int y) {
 			char marque;
 			if (this.aUnVaisseauQuiOccupeLaPosition(x, y))
-				marque=MARQUE_VAISSEAU;
+				marque=Constante.MARQUE_VAISSEAU;
 			else {
-				marque=MARQUE_VIDE;
+				marque=Constante.MARQUE_VIDE;
 			}
 			return marque;
 		}
@@ -78,5 +78,33 @@ public class SpaceInvaders {
 
 			vaisseau = new Vaisseau(longueurVaisseau, hauteurVaisseau);
 			vaisseau.positionner(x, y);
+		}
+
+		@Override
+		public void evoluer(Commande commandeUser) {
+			// TODO Auto-generated method stub
+			if(commandeUser.gauche) {
+				vaisseau.seDeplacerVersLaGauche();
+			}
+			if(commandeUser.droite) {
+				vaisseau.seDeplacerVersLaDroite();
+			}
+		}
+
+		@Override
+		public boolean etreFini() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		public void initialiserJeu() {
+			// TODO Auto-generated method stub
+			positionnerUnNouveauVaisseau(new Dimension(Constante.VAISSEAU_LONGUEUR, Constante.VAISSEAU_HAUTEUR),
+	                new Position(this.longueur / 2, this.hauteur - 1));
+		}
+
+		public Vaisseau recupererVaisseau() {
+			// TODO Auto-generated method stub
+			return this.vaisseau;
 		}
    }
