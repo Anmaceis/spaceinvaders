@@ -225,5 +225,24 @@ package fr.unilim.iut.spaceInvaders;
            "VVV............\n" , spaceinvaders.recupererEspaceJeuDansChaineASCII());
          }
     	
+    	@Test
+        public void test_MissileBienTireDepuisVaisseau_VaisseauLongueurImpaireMissileLongueurImpaire() {
+
+   	   spaceinvaders.positionnerUnNouveauVaisseau(new Dimension(7,2),new Position(5,9), 2);
+   	   spaceinvaders.tirerUnMissile(new Dimension(3,2),2);
+
+          assertEquals("" + 
+          "...............\n" + 
+          "...............\n" +
+          "...............\n" + 
+          "...............\n" + 
+          "...............\n" + 
+          "...............\n" + 
+          ".......MMM.....\n" + 
+          ".......MMM.....\n" + 
+          ".....VVVVVVV...\n" + 
+          ".....VVVVVVV...\n" , spaceinvaders.recupererEspaceJeuDansChaineASCII());
+       }
+    	
     }
     

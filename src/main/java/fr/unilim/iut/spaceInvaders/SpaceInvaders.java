@@ -8,6 +8,7 @@ public class SpaceInvaders implements Jeu{
 	    
 		int longueur;
 	    int hauteur;
+	    Missile missile;
 	    Vaisseau vaisseau;
 
 
@@ -56,17 +57,26 @@ public class SpaceInvaders implements Jeu{
 		public boolean aUnVaisseau() {
 			return vaisseau!=null;
 		}
+		
+		private boolean aUnMissileQuiOccupeLaPosition(int x, int y) {
+			return this.aUnMissile() && missile.occupeLaPosition(x, y);
+		}
+		
+		public boolean aUnMissile() {
+			return missile!=null;
+		}
 	    
 		private char recupererMarqueDeLaPosition(int x, int y) {
 			char marque;
 			if (this.aUnVaisseauQuiOccupeLaPosition(x, y))
-				marque=Constante.MARQUE_VAISSEAU;
-			else {
-				marque=Constante.MARQUE_VIDE;
-			}
+				marque = Constante.MARQUE_VAISSEAU;
+			else if (this.aUnMissileQuiOccupeLaPosition(x, y))
+					marque = Constante.MARQUE_MISSILE;
+			else marque = Constante.MARQUE_VIDE;
 			return marque;
 		}
-
+		
+		
 		public void positionnerUnNouveauVaisseau(Dimension dimension, Position position, int vitesse) {
 			
 			int x = position.abscisse();
@@ -112,5 +122,9 @@ public class SpaceInvaders implements Jeu{
 		public Vaisseau recupererVaisseau() {
 			// TODO Auto-generated method stub
 			return this.vaisseau;
+		}
+
+		public void tirerUnMissile(Dimension dimension, int vitesse) {
+			this.missile = this.vaisseau.tirerUnMissile(dimension,vitesse);
 		}
    }
